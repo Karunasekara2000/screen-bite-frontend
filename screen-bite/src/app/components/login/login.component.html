@@ -1,0 +1,15 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="login-title">Login to Screen Bite</h2>
+
+    <form (submit)="onLogin()">
+      <input type="text" placeholder="Username" [(ngModel)]="credentials.email" name="username" required />
+      <input type="password" placeholder="Password" [(ngModel)]="credentials.password" name="password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <p class="signup-link">
+      Not registered? <a routerLink="/signup">Create an account</a>
+    </p>
+  </div>
+</div>
