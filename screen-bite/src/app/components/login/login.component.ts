@@ -19,7 +19,7 @@ export class LoginComponent {
   onLogin() {
     this.authService.login(this.credentials).subscribe({
       next: (res: any) => {
-        localStorage.setItem('access_token', res.token);
+        localStorage.setItem('access_token', res.access_token);
         // alert('Login successful!');
         this.router.navigate(['/home']);
       },

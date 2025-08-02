@@ -10,6 +10,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import {RouterModule} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './components/home/home.component';
+import { BookingComponent } from './components/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HomeComponent } from './components/home/home.component';
     LandingComponent,
     LoginComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    BookingComponent
   ],
     imports: [
         BrowserModule,

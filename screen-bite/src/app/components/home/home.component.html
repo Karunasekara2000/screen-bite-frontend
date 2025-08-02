@@ -1,1 +1,110 @@
-<p>home works!</p>
+<div class="home-container">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">THE SCREEN BITE</div>
+    <ul class="nav-links">
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/booking">Book Now</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-text">
+      <h1>Where Flavor Meets the Big Screen</h1>
+      <p>Enjoy gourmet dining while watching your favorite movies</p>
+      <a routerLink="/booking" class="cta-button">Book Your Experience</a>
+    </div>
+  </section>
+
+  <!-- About Screen Bite -->
+  <section class="about-screenbite">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>THE SCREEN BITE</h2>
+        <h3>THE STANLEY CINEMA AND RESTAURANT</h3>
+
+        <p>
+          At The Screen Bite, we bring together the joy of cinema and the art of
+          dining for an unforgettable experience. Whether you're on a date, out
+          with friends, or spending quality time with family, our luxury cinema setting
+          offers the perfect ambiance to relax and enjoy a movie with gourmet food delivered
+          right to your table.
+        </p>
+        <p>
+          Reserve your table, choose your favorite film, and indulge in a
+          one-of-a-kind evening where entertainment meets fine dining all in one seamless experience.
+        </p>
+
+      </div>
+      <div class="about-image">
+        <img src="assets/images/screenbite.png" alt="Luxury Cinema Dining" />
+      </div>
+    </div>
+    <div class="curve-bg"></div>
+  </section>
+
+
+  <!-- Now Screening Carousel -->
+  <section class="now-screening">
+    <h2>Now Screening</h2>
+    <div class="carousel-wrapper">
+      <div class="carousel scrolling">
+        <div class="carousel-item" *ngFor="let movie of movies.concat(movies)">
+          <img [src]="movie.image" [alt]="movie.title" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Menu Preview Section -->
+<!--  <section class="menu-preview">-->
+<!--    <h2>Featured Dishes</h2>-->
+<!--    <div class="menu-grid">-->
+<!--      <div class="menu-scroll-container">-->
+<!--        <div class="menu-card" *ngFor="let item of featuredMenu">-->
+<!--          <img [src]="item.image" [alt]="item.name" />-->
+<!--          <h3>{{ item.name }}</h3>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <a routerLink="/menu" class="cta-outline-button">Explore Full Menu</a>-->
+<!--  </section>-->
+
+  <section class="menu-preview">
+    <h2>Featured Dishes</h2>
+
+    <div class="menu-scroll-wrapper">
+      <button class="scroll-btn left" (click)="scrollLeft()">&#8249;</button>
+
+      <div class="menu-scroll-container" #scrollContainer>
+        <div class="menu-card" *ngFor="let item of featuredMenu">
+          <img [src]="item.image" [alt]="item.name" />
+          <h3>{{ item.name }}</h3>
+        </div>
+      </div>
+
+      <button class="scroll-btn right" (click)="scrollRight()">&#8250;</button>
+    </div>
+
+    <a routerLink="/menu" class="cta-outline-button">Explore Full Menu</a>
+  </section>
+
+  <!-- Booking CTA -->
+  <section class="booking-section">
+    <h2>Reserve Your Table Now</h2>
+    <p>Choose your movie, table, and gourmet menu all in one place</p>
+    <a routerLink="/booking" class="cta-button">Start Booking</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 The Screen Bite. All rights reserved.</p>
+  </footer>
+
+</div>
