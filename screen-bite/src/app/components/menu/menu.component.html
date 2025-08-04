@@ -1,0 +1,48 @@
+<nav class="navbar">
+  <div class="logo-group">
+    <!--      <img src="assets/images/screenbite-logo1.jpeg" alt="Screen Bite Logo" class="logo-img" />-->
+    <div class="logo">THE SCREEN BITE</div>
+  </div>
+  <div class="links">
+    <ul class="nav-links">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/booking">Book Now</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="user-menu" tabindex="0">
+    <i class="bi bi-person-circle user-icon"></i> <!-- Unicode user icon or use an <i class="fa fa-user"></i> if using FontAwesome -->
+    <div class="user-dropdown">
+      <a routerLink="/my-bookings">My Bookings</a>
+      <a (click)="logout()">Logout</a>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="menu-main-bg">
+  <h1 class="menu-title">Our Menu</h1>
+  <div class="menu-category" *ngFor="let cat of categories">
+    <h2 class="category-title">{{ cat }}</h2>
+    <div class="menu-items-row">
+      <div class="menu-card" *ngFor="let item of groupedMenu[cat]">
+        <div class="menu-card-body">
+          <div class="menu-card-header">
+            <span class="menu-item-name">{{ item.name }}</span>
+            <span class="menu-item-price">Rs. {{ item.price | number:'1.0-0' }}</span>
+          </div>
+          <div class="menu-item-desc">{{ item.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <footer class="footer">
+    <p>&copy; 2025 The Screen Bite. All rights reserved.</p>
+  </footer>
+</div>
