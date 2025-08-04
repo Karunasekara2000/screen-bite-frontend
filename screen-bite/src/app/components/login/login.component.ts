@@ -17,9 +17,13 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin() {
+
+    localStorage.setItem('email', this.credentials.email);
+
     this.authService.login(this.credentials).subscribe({
       next: (res: any) => {
         localStorage.setItem('access_token', res.access_token);
+        // localStorage.setItem('email', res.access_token);
         // alert('Login successful!');
         this.router.navigate(['/home']);
       },
