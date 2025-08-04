@@ -1,0 +1,55 @@
+<div class="main-dark-bg">
+  <nav class="navbar">
+  <div class="logo-group">
+    <!--      <img src="assets/images/screenbite-logo1.jpeg" alt="Screen Bite Logo" class="logo-img" />-->
+    <div class="logo">THE SCREEN BITE</div>
+  </div>
+  <div class="links">
+    <ul class="nav-links">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/booking">Book Now</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="user-menu" tabindex="0">
+    <i class="bi bi-person-circle user-icon"></i> <!-- Unicode user icon or use an <i class="fa fa-user"></i> if using FontAwesome -->
+    <div class="user-dropdown">
+      <a routerLink="/my-bookings">My Bookings</a>
+      <a (click)="logout()">Logout</a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="my-bookings-section">
+  <h2>My Bookings</h2>
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  <div *ngIf="!loading && bookings.length === 0 && !errorMsg" class="no-bookings">
+    You have no bookings yet.
+  </div>
+
+  <div *ngFor="let booking of bookings" class="booking-card">
+    <h3>Booking #{{ booking.id }}</h3>
+    <p><b>Date:</b> {{ booking.date }}</p>
+    <p><b>Day:</b> {{ booking.day }}</p>
+    <p><b>Show Time:</b> {{ booking.showTime }}</p>
+    <p><b>Table:</b> {{ booking.tableId }}</p>
+    <p><b>Payment:</b> {{ booking.paymentMethod }} <span *ngIf="booking.prepaid">(Prepaid)</span></p>
+    <p><b>Food & Drinks:</b></p>
+    <ul>
+      <li *ngFor="let item of booking.orderItem">
+        {{ item.name }} ({{ item.category }}) - Rs. {{ item.itemPrice | number:'1.0-0' }}
+      </li>
+    </ul>
+    <p class="booking-total"><b>Total Amount:</b> Rs. {{ booking.totalAmount | number:'1.0-0' }}</p>
+  </div>
+</div>
+  <div>
+    <footer class="footer">
+      <p>&copy; 2025 The Screen Bite. All rights reserved.</p>
+    </footer>
+  </div>
+</div>
