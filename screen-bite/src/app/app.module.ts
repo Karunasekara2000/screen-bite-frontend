@@ -11,6 +11,8 @@ import {RouterModule} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './components/home/home.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { BookingComponent } from './components/booking/booking.component';
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    BookingComponent
+    BookingComponent,
+    MyBookingsComponent,
+    MenuComponent
   ],
     imports: [
         BrowserModule,

@@ -5,13 +5,17 @@ import {LoginComponent} from "./components/login/login.component";
 import {SignupComponent} from "./components/signup/signup.component";
 import {HomeComponent} from "./components/home/home.component";
 import {BookingComponent} from "./components/booking/booking.component";
+import {MyBookingsComponent} from "./components/my-bookings/my-bookings.component";
+import {MenuComponent} from "./components/menu/menu.component";
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'booking', component: BookingComponent }
+  { path: 'booking', component: BookingComponent },
+  { path: 'my-bookings', component: MyBookingsComponent},
+  { path: 'menu', component: MenuComponent}
 ];
 
 @NgModule({

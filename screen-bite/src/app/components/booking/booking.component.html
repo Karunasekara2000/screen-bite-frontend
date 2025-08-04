@@ -1,0 +1,322 @@
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="logo-group">
+    <!--      <img src="assets/images/screenbite-logo1.jpeg" alt="Screen Bite Logo" class="logo-img" />-->
+    <div class="logo">THE SCREEN BITE</div>
+  </div>
+  <div class="links">
+    <ul class="nav-links">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/booking">Book Now</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="user-menu" tabindex="0">
+    <i class="bi bi-person-circle user-icon"></i> <!-- Unicode user icon or use an <i class="fa fa-user"></i> if using FontAwesome -->
+    <div class="user-dropdown">
+      <a routerLink="/my-bookings">My Bookings</a>
+      <a (click)="logout()">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="booking-container">
+  <!-- Step 1: Select Day and Time -->
+  <div *ngIf="currentStep === 1" class="step-section">
+    <h2>Select a Day</h2>
+    <div class="slot-buttons">
+      <button
+        *ngFor="let day of upcomingDays"
+        class="slot-btn"
+        [class.selected]="selectedDay === day"
+        (click)="selectDay(day)"
+      >{{ day }}</button>
+    </div>
+
+    <h2>Select a Time</h2>
+    <div class="slot-buttons">
+      <button
+        *ngFor="let time of showTimes"
+        class="slot-btn"
+        [class.selected]="selectedShowTime === time.label"
+        (click)="selectShowTime(time)"
+      >{{ time.label }}</button>
+    </div>
+
+    <button
+      class="yellow-btn"
+      [disabled]="!selectedDay || !selectedShowTime"
+      (click)="fetchMoviesForSlot()"
+    >
+      Show Movies
+    </button>
+  </div>
+
+  <!-- Step 2: Select a Movie -->
+  <div *ngIf="currentStep === 2" class="step-section">
+    <h2>Select Movie</h2>
+    <div class="card-container">
+      <div
+        *ngFor="let movie of movies"
+        class="movie-card"
+        [class.selected]="selectedMovie?.title === movie.title"
+        (click)="selectMovie(movie)"
+      >
+        <img [src]="'assets/images/movies/' + movie.url" alt="{{ movie.title }}">
+        <p>{{ movie.title }}</p>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="gray-btn" (click)="previousStep()">Back</button>
+      <button class="yellow-btn" [disabled]="!selectedMovie" (click)="onStepToSelectTable()">Next</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Select Table -->
+  <div *ngIf="currentStep === 3" class="step-section">
+    <h2>Select Your Table</h2>
+    <div class="table-layout">
+      <img src="assets/images/sketch.png" alt="Table Layout" class="table-image" />
+      <ng-container *ngFor="let table of tableList">
+        <div class="table-spot"
+             [class.selected]="selectedTable === table.id"
+             [class.booked]="isTableBooked(table.id)"
+             (click)="selectTable(table.id)"
+             [ngStyle]="getTablePosition(table.id)">
+          {{ table.id }}
+          <div class="seats-indicator">
+            <span *ngFor="let s of [].constructor(table.seats)">&#9679;</span>
+          </div>
+          <div *ngIf="isTableBooked(table.id)" class="booked-overlay">
+            <span>Reserved</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="step-nav">
+      <button class="gray-btn" (click)="previousStep()">Back</button>
+      <button class="yellow-btn" [disabled]="!selectedTable" (click)="nextStep()">Next</button>
+    </div>
+  </div>
+
+
+
+
+<!--  <div *ngIf="currentStep === 3" class="step-section">-->
+<!--    <h2>Select Your Table</h2>-->
+<!--    <div class="table-layout">-->
+<!--      <img src="assets/images/sketch.png" alt="Table Layout" class="table-image" />-->
+<!--      <ng-container *ngFor="let table of tableList">-->
+<!--        <div class="table-spot"-->
+<!--             [class.selected]="selectedTable === table.id"-->
+<!--             (click)="selectTable(table.id)"-->
+<!--             [ngStyle]="getTablePosition(table.id)">-->
+<!--          {{ table.id }}-->
+<!--          <div class="seats-indicator">-->
+<!--            <span *ngFor="let s of [].constructor(table.seats)">&#9679;</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </ng-container>-->
+<!--    </div>-->
+<!--    <div class="step-nav">-->
+<!--      <button class="gray-btn" (click)="previousStep()">Back</button>-->
+<!--      <button class="yellow-btn" [disabled]="!selectedTable" (click)="nextStep()">Next</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+
+
+<!--  <div *ngIf="currentStep === 3" class="step-section">-->
+<!--    <h2>Select Your Table</h2>-->
+<!--    <div class="table-layout">-->
+<!--      <img src="assets/images/ggg.PNG" alt="Table Layout" class="table-image" />-->
+<!--      <div class="table-spot" *ngFor="let table of ['T1','T2','T3','T4','T5','T6','T7']"-->
+<!--           [class.selected]="selectedTable === table"-->
+<!--           (click)="selectTable(table)"-->
+<!--           [ngStyle]="getTablePosition(table)">-->
+<!--        {{ table }}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="step-nav">-->
+<!--      <button class="gray-btn" (click)="previousStep()">Back</button>-->
+<!--      <button class="yellow-btn" [disabled]="!selectedTable" (click)="nextStep()">Next</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+  <!-- Step 4: Select Food -->
+<!--  <div *ngIf="currentStep === 4" class="step-section">-->
+<!--    <h2>Select Food & Beverages</h2>-->
+<!--    <div *ngFor="let category of foodCategories" class="food-category-section">-->
+<!--      <h3 class="food-category-title">{{ category }}</h3>-->
+<!--      <div class="food-container">-->
+<!--        <div *ngFor="let item of foodByCategory[category]" class="food-card">-->
+<!--          <div class="food-info">-->
+<!--            <div class="food-name">{{ item.name }}</div>-->
+<!--            <div class="food-desc">{{ item.description }}</div>-->
+<!--            <div class="food-price">Rs. {{ item.price | number:'1.0-0' }}</div>-->
+<!--          </div>-->
+<!--          <button class="add-btn"-->
+<!--                  [ngClass]="{'selected': isFoodSelected(item)}"-->
+<!--                  (click)="toggleFood(item)">-->
+<!--            {{ isFoodSelected(item) ? 'Remove' : 'Add' }}-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="selected-foods">-->
+<!--      <h4>Selected Items</h4>-->
+<!--      <ul>-->
+<!--        <li *ngFor="let item of selectedFood">-->
+<!--          {{ item.name }} <span style="color:gray">({{ item.category }})</span>-->
+<!--          <button (click)="toggleFood(item)" class="remove-btn">Remove</button>-->
+<!--        </li>-->
+<!--        <li *ngIf="selectedFood.length === 0" style="color: #bbb;">No items selected.</li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--    <div class="step-nav">-->
+<!--      <button class="gray-btn" (click)="previousStep()">Back</button>-->
+<!--      <button class="yellow-btn" (click)="nextStep()">Next</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+  <div *ngIf="currentStep === 4" class="step-section">
+    <h2>Select Food & Beverages</h2>
+    <div *ngFor="let category of foodCategories" class="food-category-section">
+
+      <!-- Category background images -->
+      <div class="category-bg-images">
+        <ng-container *ngFor="let img of categoryImages[category]">
+          <div class="category-bg-img" [ngStyle]="{'background-image': 'url(' + img + ')'}"></div>
+        </ng-container>
+      </div>
+
+      <h3 class="food-category-title">{{ category }}</h3>
+      <div class="food-container">
+        <div *ngFor="let item of foodByCategory[category]" class="food-card">
+          <div class="food-info">
+            <div class="food-name">{{ item.name }}</div>
+            <div class="food-desc">{{ item.description }}</div>
+            <div class="food-price">Rs. {{ item.price | number:'1.0-0' }}</div>
+          </div>
+          <button class="add-btn"
+                  [ngClass]="{'selected': isFoodSelected(item)}"
+                  (click)="toggleFood(item)">
+            {{ isFoodSelected(item) ? 'Remove' : 'Add' }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="selected-foods glassy-box">
+      <h4 class="selected-items-title">Selected Items</h4>
+      <div class="selected-list-table">
+        <div *ngFor="let item of selectedFood" class="selected-food-row">
+          <div class="col name">{{ item.name }}</div>
+          <div class="col category">({{ item.category }})</div>
+          <div class="col price">Rs. {{ item.price | number:'1.0-0' }}</div>
+          <div class="col action">
+            <button (click)="toggleFood(item)" class="remove-btn">Remove</button>
+          </div>
+        </div>
+        <div *ngIf="selectedFood.length === 0" class="no-items">No items selected.</div>
+        <div *ngIf="selectedFood.length > 0" class="selected-total-row">
+          <div class="col" style="top: 30px"></div>
+          <div class="col total-label"><b>Total:</b></div>
+          <div class="col total-value">Rs. {{ selectedTotal | number:'1.0-0' }}</div>
+<!--          <div class="col"></div>-->
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="gray-btn" (click)="previousStep()">Back</button>
+      <button class="yellow-btn" (click)="nextStep()">Next</button>
+    </div>
+    <!-- ... rest of your template ... -->
+  </div>
+
+
+
+<!--  <div *ngIf="currentStep === 4" class="step-section">-->
+<!--    <h2>Select Food & Beverages</h2>-->
+<!--    <div class="food-container">-->
+<!--      <div-->
+<!--        *ngFor="let item of menuItems"-->
+<!--        class="food-card"-->
+<!--        [class.selected]="selectedFood.includes(item.name)"-->
+<!--        (click)="toggleFood(item)"-->
+<!--      >-->
+<!--        <img [src]="item.image" alt="{{ item.name }}">-->
+<!--        <p>{{ item.name }}</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="step-nav">-->
+<!--      <button class="gray-btn" (click)="previousStep()">Back</button>-->
+<!--      <button class="yellow-btn" (click)="nextStep()">Next</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <!-- Step 5: Review Summary -->
+  <div *ngIf="currentStep === 5" class="step-section">
+    <h2>Review Your Booking</h2>
+    <div class="summary-box">
+      <p><strong>Day:</strong> {{ selectedDay }}</p>
+      <p><strong>Time:</strong> {{ selectedShowTime }}</p>
+      <p><strong>Movie:</strong> {{ selectedMovie?.title }}</p>
+      <p><strong>Table:</strong> {{ selectedTable }}</p>
+<!--      <p><strong>Food:</strong> {{ selectedFood.join(', ') || 'None selected' }}</p>-->
+      <p><strong>Food:</strong></p>
+      <ul *ngIf="selectedFood && selectedFood.length; else noneSelected" class="food-summary-list">
+        <li *ngFor="let item of selectedFood">
+          <span class="food-summary-name">{{ item.name }}</span>
+          <span class="food-summary-price">Rs. {{ item.price | number:'1.0-0' }}</span>
+        </li>
+      </ul>
+      <ng-template #noneSelected>
+        <div style="color: #aaa;">None selected</div>
+      </ng-template>
+      <div *ngIf="selectedFood && selectedFood.length" class="food-summary-total">
+        <b>Total:</b> Rs. {{ getSelectedFoodTotal() | number:'1.0-0' }}
+      </div>
+      <div class="payment-method-box">
+        <label><b>Payment Method:</b></label>
+        <label>
+          <input type="radio" name="paymentMethod" value="Credit Card" [(ngModel)]="selectedPaymentMethod"> Card
+        </label>
+        <label style="margin-left: 18px;">
+          <input type="radio" name="paymentMethod" value="Cash" [(ngModel)]="selectedPaymentMethod"> Cash
+        </label>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="gray-btn" (click)="previousStep()">Back</button>
+      <button class="yellow-btn" (click)="confirmBooking()">Confirm</button>
+    </div>
+  </div>
+
+  <!-- Step 6: Confirmation -->
+  <div *ngIf="currentStep === 6" class="step-section booking-confirmed-section">
+    <div class="confirmation-card">
+      <div class="confirmation-icon">
+        <!-- You can use an SVG, or <img src="assets/check.svg"> -->
+        <svg viewBox="0 0 40 40" width="56" height="56">
+          <circle cx="20" cy="20" r="20" fill="#ffd700"/>
+          <polyline points="13,22 19,28 29,15" fill="none" stroke="#184b2d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="confirmation-title">Booking Confirmed!</h2>
+      <p class="confirmation-message">
+        Your seat and food have been successfully booked.<br>
+        <span style="color:#ffb800;">We look forward to serving you at <b>Screen Bite</b>!</span>
+      </p>
+      <button class="yellow-btn confirm-action-btn" (click)="resetBooking()">Book Another</button>
+    </div>
+  </div>
+</div>
+
