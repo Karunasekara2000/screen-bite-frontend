@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,8 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 export class HomeComponent implements AfterViewInit{
 
  @ViewChild('carousel', { static: false }) carousel!: ElementRef;
+
+  constructor(private router: Router) {}
 
 
   movies = [
@@ -59,6 +62,12 @@ export class HomeComponent implements AfterViewInit{
     setInterval(() => {
       this.scrollRight();
     }, 3000); // scroll every 3 seconds
+  }
+
+  logout() {
+    localStorage.clear();  // Or just remove relevant tokens
+    // Redirect to login or homepage
+    this.router.navigate(['/login']);
   }
 
 }
