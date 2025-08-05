@@ -1,0 +1,101 @@
+<nav class="navbar">
+  <div class="logo-group">
+    <!--      <img src="assets/images/screenbite-logo1.jpeg" alt="Screen Bite Logo" class="logo-img" />-->
+    <div class="logo">THE SCREEN BITE</div>
+  </div>
+  <div class="links">
+    <ul class="nav-links">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/booking">Book Now</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="user-menu" tabindex="0">
+    <i class="bi bi-person-circle user-icon"></i> <!-- Unicode user icon or use an <i class="fa fa-user"></i> if using FontAwesome -->
+    <div class="user-dropdown">
+      <a routerLink="/my-bookings">My Bookings</a>
+      <a (click)="logout()">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="outer">
+<div class="contact-section">
+  <h2>Contact Us</h2>
+  <p class="subtitle">We're here to help! Reach out to us for bookings, feedback, or any inquiries.</p>
+
+  <div class="contact-content">
+    <!-- Left: Details & Social -->
+    <div class="contact-details">
+      <div class="detail-box">
+        <i class="bi bi-telephone-fill"></i>
+        <span><b>Contact: </b> <a href="tel:+94112288322">+94 11 228 8322</a></span>
+      </div>
+      <div class="detail-box">
+        <i class="bi bi-envelope-fill"></i>
+        <span><b>Email: </b> <a href="mailto:thescreebite@gmail.com">thescreebite@gmail.com</a></span>
+      </div>
+      <div class="detail-box">
+        <i class="bi bi-geo-alt-fill"></i>
+        <span><b>Address: </b> 435B Nawala road, Rajagiriya</span>
+      </div>
+      <div class="detail-box">
+        <i class="bi bi-clock-fill"></i>
+        <span><b>Opening Hours: </b> Mon–Sun: 10:00 AM – 11:00 PM</span>
+      </div>
+      <div class="social-links">
+        <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://tiktok.com/" target="_blank" title="TikTok"><i class="bi bi-tiktok"></i></a>
+        <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+
+    <!-- Right: Contact Form -->
+    <form class="contact-form" (ngSubmit)="submitForm()" #contactForm="ngForm" autocomplete="off">
+      <div class="form-row">
+        <input type="text" name="name" [(ngModel)]="formData.name" required placeholder="Your Name" />
+      </div>
+      <div class="form-row">
+        <input type="email" name="email" [(ngModel)]="formData.email" required placeholder="Your Email" />
+      </div>
+      <div class="form-row">
+        <select name="subject" [(ngModel)]="formData.subject" required>
+          <option value="" disabled selected>Subject</option>
+          <option>General Inquiry</option>
+          <option>Booking Help</option>
+          <option>Feedback</option>
+          <option>Partnerships</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <textarea name="message" [(ngModel)]="formData.message" rows="4" required placeholder="Your Message"></textarea>
+      </div>
+      <div class="form-row">
+        <button type="submit" class="send-btn" [disabled]="!contactForm.form.valid">Send Message</button>
+      </div>
+      <div *ngIf="submitted" class="form-success">
+        <i class="bi bi-check2-circle"></i> Thank you! We'll get back to you soon.
+      </div>
+    </form>
+  </div>
+
+  <!-- Map Embed (optional, Google Maps example) -->
+  <div class="map-embed">
+    <iframe
+      src="https://www.google.com/maps?q=435B%20Nawala%20Road%2C%20Rajagiriya&output=embed"
+      frameborder="0"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  </div>
+</div>
+</div>
+<div>
+  <footer class="footer">
+    <p>&copy; 2025 The Screen Bite. All rights reserved.</p>
+  </footer>
+</div>
