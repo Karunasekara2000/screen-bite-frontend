@@ -7,6 +7,7 @@ import {HomeComponent} from "./components/home/home.component";
 import {BookingComponent} from "./components/booking/booking.component";
 import {MyBookingsComponent} from "./components/my-bookings/my-bookings.component";
 import {MenuComponent} from "./components/menu/menu.component";
+import {ContactComponent} from "./components/contact/contact.component";
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'booking', component: BookingComponent },
   { path: 'my-bookings', component: MyBookingsComponent},
-  { path: 'menu', component: MenuComponent}
+  { path: 'menu', component: MenuComponent},
+  { path: 'contact', component: ContactComponent}
 ];
 
 @NgModule({

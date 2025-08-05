@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MenuComponent } from './components/menu/menu.component';
     HomeComponent,
     BookingComponent,
     MyBookingsComponent,
-    MenuComponent
+    MenuComponent,
+    ContactComponent
   ],
     imports: [
         BrowserModule,
